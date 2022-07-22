@@ -1,0 +1,22 @@
+
+/////// create table ///////////////////////////
+
+CREATE TABLE `mydb`.`courses` (
+  `idcourses` INT NOT NULL,
+  `coursename` VARCHAR(45) NULL,
+  PRIMARY KEY (`idcourses`));
+
+
+
+/////////  insert data //////////////
+
+INSERT INTO `mydb`.`courses` (`idcourses`, `coursename`) VALUES ('1', 'c');
+INSERT INTO `mydb`.`courses` (`idcourses`, `coursename`) VALUES ('2', 'java');
+INSERT INTO `mydb`.`courses` (`idcourses`, `coursename`) VALUES ('3', 'dart');
+INSERT INTO `mydb`.`courses` (`idcourses`, `coursename`) VALUES ('4', 'php');
+INSERT INTO `mydb`.`courses` (`idcourses`, `coursename`) VALUES ('5', 'mysql');
+
+/////////  change column name //////////////
+
+ALTER TABLE `mydb`.`courses` 
+CHANGE COLUMN `coursename` `coursesname` VARCHAR(45) NULL DEFAULT NULL ;
