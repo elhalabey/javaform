@@ -20,3 +20,9 @@ INSERT INTO `mydb`.`courses` (`idcourses`, `coursename`) VALUES ('5', 'mysql');
 
 ALTER TABLE `mydb`.`courses` 
 CHANGE COLUMN `coursename` `coursesname` VARCHAR(45) NULL DEFAULT NULL ;
+
+
+///    update data  ///////
+UPDATE `mydb`.`clients` SET `clientsphone` = '545454' WHERE (`Clientsid` = '2');
+UPDATE `mydb`.`clients` SET `clientsphone` = '323232' WHERE (`Clientsid` = '3');
+UPDATE `mydb`.`clients` SET `clientsphone` = '989898' WHERE (`Clientsid` = '1');
