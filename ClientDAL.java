@@ -86,6 +86,7 @@ public class ClientDAL
         
         
     }
+    
      static ClientDO getClientByName (String name)
     {
         DbHandler dbhandler;
@@ -126,6 +127,7 @@ public class ClientDAL
         
         
     }
+     
     static ClientDO getClientByPhone (int phone)
     {
         DbHandler dbhandler;
@@ -162,31 +164,39 @@ public class ClientDAL
         }
         
         
-    }        
-    static ClientDO getOwnerClient ()
+    }      
+    
+    static ClientDO getClientByCategory (int clientCategory)
     {
         DbHandler dbhandler;
         try {
             dbhandler = new DbHandler("jdbc:mysql://localhost:3306/mydb","halaby","1234");
             ClientDO clientDO = new ClientDO();
-            ResultSet rs=dbhandler.executeQuery("select * from Clients where CategoryID = 3");
+            ResultSet rsClient=dbhandler.executeQuery("select * from Clients where CategoryID = "+clientCategory);
+            //ResultSet rsCategory=dbhandler.executeQuery("select * from Category where CategoryID = "+clientCategory);
             
-            if(rs==null)
+            if(rsClient==null)
                 return null;
-//    if (clientDO !=null)
-//        System.out.println(clientDO.getFirstname());
-//    else 
-//       System.out.println("client not found");        
-             rs.next();
-             
-            clientDO.setId(rs.getInt("ClientsID"));
-            clientDO.setFirstname(rs.getString("clientsfirstname"));
-            clientDO.setLastname(rs.getString("clientslastname"));
-            clientDO.setEmail(rs.getString("clientsemail"));
-            clientDO.setPhone(rs.getInt("clientsphone"));
-            clientDO.setOrgloc(rs.getString("clientsorgloc"));
-            clientDO.setOrgname(rs.getString("clientsorgname"));
-            clientDO.setMessage(rs.getString("clientsmessage"));
+            //if(rsCategory==null)
+            //    return null;
+            
+            rsClient.next();
+            //rsCategory.next();
+            
+            clientDO.setId(rsClient.getInt("ClientsID"));
+            clientDO.setFirstname(rsClient.getString("clientsfirstname"));
+            clientDO.setLastname(rsClient.getString("clientslastname"));
+            clientDO.setEmail(rsClient.getString("clientsemail"));
+            clientDO.setPhone(rsClient.getInt("clientsphone"));
+            clientDO.setOrgloc(rsClient.getString("clientsorgloc"));
+            clientDO.setOrgname(rsClient.getString("clientsorgname"));
+            clientDO.setMessage(rsClient.getString("clientsmessage"));
+
+            rsClient=dbhandler.executeQuery("select * from Category where CategoryID = "+clientCategory);
+            if(rsClient==null)
+                return null;
+            rsClient.next();
+            clientDO.setCategory(rsClient.getString("categoryname"));
             
             return clientDO;
             } 
@@ -200,19 +210,23 @@ public class ClientDAL
         
         
     }    
-    
-   public static void main (String args [])
+   
+    static void viewClientData (ClientDO client){
+  
+       System.out.println("Client ID : "+client.getId());       
+       System.out.println("Client Firstname : "+client.getFirstname());       
+       System.out.println("Client Lastname : "+client.getLastname());       
+       System.out.println("Client Email : "+client.getEmail());       
+       System.out.println("Client Phone : "+client.getPhone());       
+       System.out.println("Client Message : "+client.getMessage());       
+       System.out.println("Client Orginzation location : "+client.getOrgloc());       
+       System.out.println("Client Orginzation name : "+client.getOrgname());       
+       System.out.println("Client Category : "+client.getCategory());
+    }
+       public static void main (String args [])
+
    {
-       ClientDO client = new ClientDO();
-       client = getOwnerClient();
-       System.out.println(client.getId());       
-       System.out.println(client.getFirstname());       
-       System.out.println(client.getLastname());       
-       System.out.println(client.getEmail());       
-       System.out.println(client.getPhone());       
-       System.out.println(client.getMessage());       
-       System.out.println(client.getOrgloc());       
-       System.out.println(client.getOrgname());       
+       viewClientData( getClientByCategory(3));      
    }
     
 }
