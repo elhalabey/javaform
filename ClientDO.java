@@ -18,6 +18,16 @@ int phone;
 String message;
 String orgname;
 String orgloc;
+String category;
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
 
     public void setId(int id) {
         this.id = id;
